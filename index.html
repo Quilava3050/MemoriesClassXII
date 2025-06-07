@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Profil Lucu & Galeri</title>
+  <title>Miaw-Miaww⚡</title>
   <style>
     :root {
       --bg-light: #f4f4f9;
@@ -13,11 +12,13 @@
       --text-dark: #f1f1f1;
       --accent: #7c98ab;
     }
+
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
     }
+
     body {
       font-family: 'Comic Sans MS', cursive, sans-serif;
       background: var(--bg-light);
@@ -27,29 +28,16 @@
       overflow-x: hidden;
       overflow-y: auto;
     }
-    .background-balls {
+
+    #bgCanvas {
       position: fixed;
       top: 0;
       left: 0;
+      z-index: -1;
       width: 100vw;
       height: 100vh;
-      z-index: -1;
-      pointer-events: none;
-      overflow: hidden;
     }
-    .ball {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.4;
-    }
-    @keyframes moveRightDown {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(200vw, 200vh); }
-    }
-    @keyframes moveLeftUp {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(-200vw, -200vh); }
-    }
+
     header {
       background-color: var(--accent);
       padding: 1rem;
@@ -57,31 +45,44 @@
       font-size: 2rem;
       font-weight: bold;
     }
-    .theme-toggle {
+
+    .theme-toggle, .music-player {
       margin: 1rem;
       text-align: center;
     }
-    .theme-toggle button {
+
+    .theme-toggle button, .music-player button, .music-player select {
       padding: 0.5rem 1rem;
       font-size: 1rem;
       background-color: var(--accent);
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      margin: 0.25rem;
     }
+
+    .track-title {
+      text-align: center;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+
     .container {
       max-width: 800px;
       margin: auto;
       padding: 1rem;
     }
+
     .profile {
       text-align: center;
     }
+
     .profile img {
       width: 200px;
       border-radius: 50%;
       border: 5px solid var(--accent);
     }
+
     .gallery {
       display: flex;
       flex-wrap: wrap;
@@ -89,10 +90,12 @@
       gap: 1rem;
       margin-top: 2rem;
     }
+
     .gallery .item {
       position: relative;
       cursor: pointer;
     }
+
     .gallery img,
     .gallery video {
       width: 200px;
@@ -102,10 +105,12 @@
       border-radius: 10px;
       transition: transform 0.3s;
     }
+
     .gallery img:hover,
     .gallery video:hover {
       transform: scale(1.05) rotate(-2deg);
     }
+
     .modal {
       display: none;
       position: fixed;
@@ -118,12 +123,14 @@
       align-items: center;
       z-index: 999;
     }
+
     .modal-content {
       background: white;
       padding: 2rem;
       border-radius: 10px;
       text-align: center;
     }
+
     .modal-content a {
       display: block;
       margin: 1rem 0;
@@ -131,84 +138,238 @@
       color: var(--text-light);
       font-weight: bold;
     }
+
     body.dark {
       background-color: var(--bg-dark);
       color: var(--text-dark);
     }
+
     body.dark .modal-content {
       background: #333;
       color: #fff;
     }
+
     body.dark .modal-content a {
       color: #fff;
+    }
+
+    .progress-container {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto 1rem;
+    }
+
+    .progress {
+      width: 100%;
     }
   </style>
 </head>
 <body>
-  <div class="background-balls" id="bgBalls"></div>
-  <header>Welcome To Miaw Maww!</header>
+  <canvas id="bgCanvas"></canvas>
+
+  <header>
+    Welcome To Miaw Maww!
+  </header>
+
   <div class="theme-toggle">
     <button onclick="toggleTheme()">Theme</button>
   </div>
+
+  <div class="music-player">
+    <div class="track-title" id="trackTitle">🎵</div>
+    <div class="progress-container">
+      <input type="range" id="progressBar" class="progress" value="0" step="1" />
+    </div>
+    <button onclick="toggleMusic()">Play/Pause</button>
+    <button onclick="nextTrack()">Next Music</button>
+    <button onclick="toggleShuffle()">Shuffle</button>
+    <button onclick="toggleLoop()">Loop</button>
+    <select id="trackSelect" onchange="selectTrack(this.value)"></select>
+  </div>
+
   <div class="container">
-    <section class="profile">
-      <h2>Nanda Quila</h2>
-      <img src="https://i.supa.codes/4jkIKC" alt="Nanda Quila" />
-    </section>
-    <section class="gallery">
-      <h2 style="width: 100%; text-align:center">Galeri Miaw Miaw</h2>
+    <div class="profile">
+      <img src="https://i.supa.codes/4jkIKC" alt="Profil" />
+    </div>
+
+    <div class="gallery">
       <div class="item" onclick="showOptions()">
-        <img src="https://i.supa.codes/LhpWFA" alt="Galeri 1" />
+        <img src="https://i.supa.codes/LhpWFA" alt="Galeri" />
       </div>
       <div class="item" onclick="showOptions()">
-        <img src="https://i.supa.codes/GIIW2r" alt="Galeri 2" />
+        <img src="https://i.supa.codes/GIIW2r" alt="Galeri" />
       </div>
       <div class="item" onclick="showOptions()">
-        <img src="https://i.supa.codes/_V2bOQ" alt="Galeri 3">
+        <img src="https://i.supa.codes/_V2bOQ" alt="Galeri" />
       </div>
       <div class="item" onclick="showOptions()">
         <video src="https://i.supa.codes/hPCtBZ" controls></video>
       </div>
       <div class="item" onclick="showOptions()">
-        <img src="https://i.supa.codes/b0pTjn" alt="Galeri 5">
+        <img src="https://i.supa.codes/b0pTjn" alt="Galeri" />
       </div>
       <div class="item" onclick="showOptions()">
-        <img src="https://i.supa.codes/peE5JP" alt="Galeri 6">
+        <img src="https://i.supa.codes/peE5JP" alt="Galeri" />
       </div>
-    </section>
+    </div>
   </div>
-  <div class="modal" id="modal">
-    <div class="modal-content">
-      <h3>Pilih Platform untuk Kirim Pesan</h3>
-      <a href="https://wa.me/6282113148932" target="_blank" id="waLink">WhatsApp</a>
-      <a href="https://www.instagram.com/dhiekaaquilaa?igsh=YXF3eWhjdXQzYWE0" target="_blank" id="igLink">Instagram</a>
-      <a href="https://www.tiktok.com/@apaajagtau5?_t=ZS-8wugESj53ge&_r=1" target="_blank" id="ttLink">TikTok</a>
+
+  <div class="modal" id="modal" onclick="hideOptions()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <a href="https://wa.me/6282113148932" target="_blank">Chat via WhatsApp</a>
+      <a href="https://www.instagram.com/dhiekaaquilaa?igsh=YXF3eWhjdXQzYWE0" target="_blank">Lihat di Instagram</a>
+      <a href="https://www.tiktok.com/@apaajagtau5?_t=ZS-8wugESj53ge&_r=1" target="_blank">Buka TikTok</a>
       <button onclick="hideOptions()">Tutup</button>
     </div>
   </div>
+
+  <audio id="bgMusic"></audio>
+
   <script>
+    const audio = document.getElementById('bgMusic');
+    const trackTitle = document.getElementById('trackTitle');
+    const progressBar = document.getElementById('progressBar');
+    const trackSelect = document.getElementById('trackSelect');
+
+    const tracks = [
+      { title: "KAMI PHONK, Dr.M0B", url: "https://files.catbox.moe/ih8cxl.mp3" },
+      { title: "everything works out in the end, Luke Willies", url: "https://files.catbox.moe/3o33by.mp3" },
+      { title: "ours to keep, Kendis", url: "https://files.catbox.moe/4c5c3q.mp3" },
+      { title: "message in a bottle, Taylor Swift", url: "https://files.catbox.moe/jp0bfp.mp3" },
+      { title: "DEFEATED, Dr.M0b", url: "https://files.catbox.moe/evm9e1.mp3" },
+      { title: "Ava, Famy", url: "https://files.catbox.moe/g50rmm.mp3" }
+    ];
+
+    let currentTrackIndex = 0;
+    let isLooping = false;
+    let isShuffling = false;
+
+    function toggleMusic() {
+      if (!audio.src) {
+        selectTrack(0);
+        return;
+      }
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    }
+
+    function selectTrack(index) {
+      currentTrackIndex = parseInt(index);
+      audio.src = tracks[currentTrackIndex].url;
+      trackTitle.textContent = '🎵 ' + tracks[currentTrackIndex].title;
+      trackSelect.value = index;
+      audio.play();
+    }
+
+    function nextTrack() {
+      if (isShuffling) {
+        currentTrackIndex = Math.floor(Math.random() * tracks.length);
+      } else {
+        currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+      }
+      selectTrack(currentTrackIndex);
+    }
+
+    function toggleShuffle() {
+      isShuffling = !isShuffling;
+      alert('Shuffle ' + (isShuffling ? 'Aktif' : 'Nonaktif'));
+    }
+
+    function toggleLoop() {
+      isLooping = !isLooping;
+      audio.loop = isLooping;
+      alert('Loop ' + (isLooping ? 'Aktif' : 'Nonaktif'));
+    }
+
+    audio.addEventListener('ended', () => {
+      if (!audio.loop) {
+        nextTrack();
+      }
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      if (audio.duration) {
+        progressBar.value = (audio.currentTime / audio.duration) * 100;
+      }
+    });
+
+    progressBar.addEventListener('input', () => {
+      if (audio.duration) {
+        audio.currentTime = (progressBar.value / 100) * audio.duration;
+      }
+    });
+
     function toggleTheme() {
       document.body.classList.toggle('dark');
     }
+
     function showOptions() {
       document.getElementById('modal').style.display = 'flex';
     }
+
     function hideOptions() {
       document.getElementById('modal').style.display = 'none';
     }
-    const bg = document.getElementById('bgBalls');
-    for (let i = 0; i < 120; i++) {
-      const ball = document.createElement('div');
-      const size = Math.random() * 20 + 10;
-      ball.classList.add('ball');
-      ball.style.width = `${size}px`;
-      ball.style.height = `${size}px`;
-      ball.style.left = `${Math.random() * 100}vw`;
-      ball.style.top = `${Math.random() * 100}vh`;
-      ball.style.background = `rgba(${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, 0.4)`;
-      ball.style.animation = `${Math.random() > 0.5 ? 'moveRightDown' : 'moveLeftUp'} ${20 + Math.random() * 10}s linear infinite`;
-      bg.appendChild(ball);
+
+    window.onload = () => {
+      tracks.forEach((track, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = track.title;
+        trackSelect.appendChild(option);
+      });
+      selectTrack(0);
+    };
+
+    // Background animated balls
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let balls = [];
+    const ballCount = 50;
+
+    for (let i = 0; i < ballCount; i++) {
+      balls.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 10 + 5,
+        dx: (Math.random() - 0.5) * 0.5,
+        dy: (Math.random() - 0.5) * 0.5,
+        color: `rgba(124,152,171,${Math.random() * 0.4 + 0.1})`
+      });
     }
+
+    function animateBalls() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      balls.forEach(ball => {
+        ball.x += ball.dx;
+        ball.y += ball.dy;
+
+        if (ball.x > canvas.width) ball.x = 0;
+        if (ball.x < 0) ball.x = canvas.width;
+        if (ball.y > canvas.height) ball.y = 0;
+        if (ball.y < 0) ball.y = canvas.height;
+
+        ctx.beginPath();
+        ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2);
+        ctx.fillStyle = ball.color;
+        ctx.fill();
+      });
+
+      requestAnimationFrame(animateBalls);
+    }
+
+    animateBalls();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
   </script>
 </body>
 </html>
