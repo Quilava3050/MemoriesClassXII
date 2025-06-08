@@ -20,7 +20,7 @@
       scrollbar-width: none;  /* Firefox */
       -ms-overflow-style: none;  /* IE and Edge */
     }
-    
+
     body::-webkit-scrollbar {
       display: none;  /* Chrome, Safari and Opera */
     }
@@ -64,6 +64,45 @@
       border-radius: 5px;
       cursor: pointer;
       margin: 0.25rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .music-player button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .music-player button:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .music-player button.active {
+      background-color: #45b7d1;
+      color: var(--bg-dark);
+    }
+
+    .music-player select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 0.7rem center;
+      background-size: 1em;
+      padding-right: 2.5rem;
+      min-width: 200px;
+      max-width: 90%;
+    }
+
+    .music-player select:hover {
+      background-color: #45b7d1;
+    }
+
+    .music-player select option {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+      padding: 0.5rem;
     }
 
     .track-title {
@@ -88,32 +127,101 @@
       border: 5px solid var(--accent);
     }
 
+    .gallery-title {
+      text-align: center;
+      margin: 2rem 0;
+      position: relative;
+    }
+
+    .gallery-title::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: -10px;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .gallery-title h2 {
+      font-size: 1.5rem;
+      margin: 0;
+      color: var(--accent);
+      font-weight: normal;
+      letter-spacing: 2px;
+    }
+
     .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
       margin-top: 2rem;
+      padding: 0 1rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .gallery .item {
       position: relative;
       cursor: pointer;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border-radius: 8px;
     }
 
     .gallery img,
     .gallery video {
-      width: 200px;
-      height: 200px;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      border: 4px dashed var(--accent);
-      border-radius: 10px;
-      transition: transform 0.3s;
+      border: none;
+      transition: transform 0.3s ease;
     }
 
     .gallery img:hover,
     .gallery video:hover {
-      transform: scale(1.05) rotate(-2deg);
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      .gallery {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        padding: 0 0.5rem;
+      }
+
+      .music-player {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0 1rem;
+      }
+
+      .music-player button, .music-player select {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+      }
+
+      .music-player select {
+        width: 100%;
+        max-width: none;
+        margin-top: 0.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .gallery {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+      }
+
+      .music-player button {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.6rem;
+      }
     }
 
     .modal {
@@ -123,36 +231,145 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.7);
       justify-content: center;
       align-items: center;
       z-index: 999;
+      backdrop-filter: blur(5px);
+    }
+
+    .modal.show {
+      display: flex;
     }
 
     .modal-content {
-      background: #333;
+      background: var(--bg-dark);
       padding: 2rem;
-      border-radius: 10px;
+      border-radius: 12px;
       text-align: center;
-      color: #fff;
+      max-width: 90%;
+      width: 400px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .modal-content a {
-      display: block;
-      margin: 1rem 0;
-      text-decoration: none;
-      color: #fff;
-      font-weight: bold;
+    .social-options {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .social-option {
+      padding: 0.8rem 1.2rem;
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: inherit;
+    }
+
+    .social-option:hover, .social-option.active {
+      background: var(--accent);
+      color: var(--bg-dark);
+    }
+
+    .suggestion-form {
+      display: none;
+    }
+
+    .suggestion-form.show {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .modal-content h3 {
+      margin: 0 0 1.5rem 0;
+      color: var(--accent);
+      font-size: 1.5rem;
+      font-weight: normal;
+    }
+
+    .modal-content p {
+      margin: 0 0 1.5rem 0;
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    .modal-content textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-dark);
+      resize: vertical;
+      min-height: 100px;
+      font-family: inherit;
+    }
+
+    .modal-content button {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      background: var(--accent);
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: opacity 0.3s;
+      font-family: inherit;
+    }
+
+    .modal-content button:hover {
+      opacity: 0.9;
+    }
+
+    @media (max-width: 480px) {
+      .modal-content {
+        width: 85%;
+        padding: 1.5rem;
+      }
     }
 
     .progress-container {
       width: 100%;
       max-width: 600px;
       margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
     .progress {
-      width: 100%;
+      flex: 1;
+      height: 4px;
+      -webkit-appearance: none;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      cursor: pointer;
+    }
+
+    .progress::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px;
+      height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .progress::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    .time-display {
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      min-width: 100px;
+      text-align: center;
     }
 
     .credits {
@@ -199,18 +416,21 @@
   <div class="music-player">
     <div class="track-title" id="trackTitle">🎵</div>
     <div class="progress-container">
+      <span id="currentTime">0:00</span>
       <input type="range" id="progressBar" class="progress" value="0" step="1" />
+      <span id="duration">0:00</span>
     </div>
     <button onclick="toggleMusic()">Play/Pause</button>
-    <button onclick="nextTrack()">Next Music</button>
-    <button onclick="toggleShuffle()">Shuffle</button>
-    <button onclick="toggleLoop()">Loop</button>
     <select id="trackSelect" onchange="selectTrack(this.value)"></select>
   </div>
 
   <div class="container">
     <div class="profile">
       <img src="https://i.supa.codes/d9l1-v" alt="Profil" />
+    </div>
+
+    <div class="gallery-title">
+      <h2>Gallery Forces</h2>
     </div>
 
     <div class="gallery">
@@ -246,10 +466,18 @@
 
   <div class="modal" id="modal" onclick="hideOptions()">
     <div class="modal-content" onclick="event.stopPropagation()">
-      <a href="https://wa.me/6282113148932" target="_blank">Chat via WhatsApp</a>
-      <a href="https://www.instagram.com/dhiekaaquilaa?igsh=YXF3eWhjdXQzYWE0" target="_blank">Lihat di Instagram</a>
-      <a href="https://www.tiktok.com/@apaajagtau5?_t=ZS-8wugESj53ge&_r=1" target="_blank">Buka TikTok</a>
-      <button onclick="hideOptions()">Tutup</button>
+      <h3>Pilih Platform</h3>
+      <p>Pilih platform untuk mengirim saran Anda</p>
+      <div class="social-options">
+        <button class="social-option" onclick="selectPlatform('whatsapp')">WhatsApp</button>
+        <button class="social-option" onclick="selectPlatform('instagram')">Instagram</button>
+        <button class="social-option" onclick="selectPlatform('tiktok')">TikTok</button>
+      </div>
+      <form class="suggestion-form" id="suggestionForm" onsubmit="submitSuggestion(event)">
+        <textarea placeholder="Tulis saran Anda di sini..." required></textarea>
+        <button type="submit">Kirim Saran</button>
+      </form>
+      <button onclick="hideOptions()" style="margin-top: 1rem; background: transparent; border: 1px solid var(--accent);">Tutup</button>
     </div>
   </div>
 
@@ -260,11 +488,16 @@
     const trackTitle = document.getElementById('trackTitle');
     const progressBar = document.getElementById('progressBar');
     const trackSelect = document.getElementById('trackSelect');
+    const currentTimeDisplay = document.getElementById('currentTime');
+    const durationDisplay = document.getElementById('duration');
 
     const tracks = [
       { title: "Multo, Cup of Joe", url: "https://files.catbox.moe/5rz3p4.mp3" },
       { title: "Someone to Stay", url: "https://files.catbox.moe/qc3usy.mp3" },
       { title: "Sempurna English Version", url: "https://files.catbox.moe/f1uj7t.mp3" },
+      { title: "Sempurna Indonesian Version", url: "https://files.catbox.moe/6sauxu.mp3" },
+      { title: "Walking in the Wind - One Direction", url: "https://files.catbox.moe/hvjl0h.mp3"},
+      { title: "Where We Are - One Direction", url: "https://files.catbox.moe/nplufo.mp3"},
       { title: "Lana Del Rey - Cinnamon Girl", url: "https://files.catbox.moe/es7unz.mp3" },
       { title: "Milk & Bone - Natalie", url: "https://files.catbox.moe/w32blj.mp3" },
       { title: "Sea Of Feelings (Slowed)", url: "https://files.catbox.moe/r5a8b5.mp3" },
@@ -286,10 +519,13 @@
         selectTrack(0);
         return;
       }
+      const playButton = document.querySelector('button[onclick="toggleMusic()"]');
       if (audio.paused) {
         audio.play();
+        playButton.classList.add('active');
       } else {
         audio.pause();
+        playButton.classList.remove('active');
       }
     }
 
@@ -298,49 +534,82 @@
       audio.src = tracks[currentTrackIndex].url;
       trackTitle.textContent = '🎵 ' + tracks[currentTrackIndex].title;
       trackSelect.value = index;
-      audio.play();
-    }
-
-    function nextTrack() {
-      if (isShuffling) {
-        currentTrackIndex = Math.floor(Math.random() * tracks.length);
-      } else {
-        currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
-      }
-      selectTrack(currentTrackIndex);
-    }
-
-    function toggleShuffle() {
-      isShuffling = !isShuffling;
-      alert('Shuffle ' + (isShuffling ? 'Aktif' : 'Nonaktif'));
-    }
-
-    function toggleLoop() {
-      isLooping = !isLooping;
-      audio.loop = isLooping;
-      alert('Loop ' + (isLooping ? 'Aktif' : 'Nonaktif'));
+      
+      // Reset progress bar and time display
+      progressBar.value = 0;
+      currentTimeDisplay.textContent = '0:00';
+      durationDisplay.textContent = '0:00';
+      
+      // Add error handling for audio loading
+      audio.onerror = function() {
+        alert('Error loading audio. Please try another track.');
+        nextTrack();
+      };
+      
+      audio.play().catch(function(error) {
+        console.log("Playback failed:", error);
+        alert('Error playing audio. Please try again.');
+      });
     }
 
     audio.addEventListener('ended', () => {
-      if (!audio.loop) {
-        nextTrack();
-      }
+      nextTrack();
     });
 
-    audio.addEventListener('timeupdate', () => {
-      if (audio.duration) {
-        progressBar.value = (audio.currentTime / audio.duration) * 100;
-      }
-    });
+    function nextTrack() {
+      currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+      selectTrack(currentTrackIndex);
+    }
 
-    progressBar.addEventListener('input', () => {
-      if (audio.duration) {
-        audio.currentTime = (progressBar.value / 100) * audio.duration;
-      }
-    });
+    function showOptions() {
+      const modal = document.getElementById('modal');
+      modal.classList.add('show');
+    }
 
     function hideOptions() {
-      document.getElementById('modal').style.display = 'none';
+      const modal = document.getElementById('modal');
+      modal.classList.remove('show');
+    }
+
+    function selectPlatform(platform) {
+      const buttons = document.querySelectorAll('.social-option');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      const form = document.getElementById('suggestionForm');
+      form.classList.add('show');
+      
+      // Simpan platform yang dipilih
+      form.dataset.platform = platform;
+    }
+
+    function submitSuggestion(event) {
+      event.preventDefault();
+      const suggestion = event.target.querySelector('textarea').value;
+      const platform = event.target.dataset.platform;
+      
+      let url = '';
+      switch(platform) {
+        case 'whatsapp':
+          url = `https://wa.me/6282113148932?text=${encodeURIComponent(suggestion)}`;
+          break;
+        case 'instagram':
+          url = 'https://www.instagram.com/dhiekaaquilaa?igsh=YXF3eWhjdXQzYWE0';
+          break;
+        case 'tiktok':
+          url = 'https://www.tiktok.com/@apaajagtau5?_t=ZS-8wugESj53ge&_r=1';
+          break;
+      }
+      
+      if (platform === 'whatsapp') {
+        window.open(url, '_blank');
+      } else {
+        alert('Silakan kirim saran Anda melalui platform yang dipilih');
+        window.open(url, '_blank');
+      }
+      
+      event.target.reset();
+      hideOptions();
     }
 
     window.onload = () => {
@@ -352,6 +621,35 @@
       });
       selectTrack(0);
     };
+
+    function formatTime(seconds) {
+      if (isNaN(seconds)) return '0:00';
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = Math.floor(seconds % 60);
+      return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+
+    audio.addEventListener('timeupdate', () => {
+      if (audio.duration && !isNaN(audio.duration)) {
+        progressBar.value = (audio.currentTime / audio.duration) * 100;
+        currentTimeDisplay.textContent = formatTime(audio.currentTime);
+        durationDisplay.textContent = formatTime(audio.duration);
+      }
+    });
+
+    audio.addEventListener('loadedmetadata', () => {
+      if (!isNaN(audio.duration)) {
+        durationDisplay.textContent = formatTime(audio.duration);
+      }
+    });
+
+    progressBar.addEventListener('input', () => {
+      if (audio.duration && !isNaN(audio.duration)) {
+        const newTime = (progressBar.value / 100) * audio.duration;
+        audio.currentTime = newTime;
+        currentTimeDisplay.textContent = formatTime(newTime);
+      }
+    });
 
     // Background animated balls
     const canvas = document.getElementById('bgCanvas');
