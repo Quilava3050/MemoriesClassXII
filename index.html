@@ -757,15 +757,18 @@
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 0.9rem;
-      margin-top: 1rem;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1rem;
+      margin: 1rem 0;
       transition: opacity 0.5s ease;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
     }
 
     .scroll-hint svg {
-      width: 20px;
-      height: 20px;
+      width: 24px;
+      height: 24px;
       animation: bounceRight 2s infinite;
     }
 
@@ -781,38 +784,41 @@
       padding: 1rem 0;
       -webkit-overflow-scrolling: touch;
       scroll-behavior: smooth;
-      scrollbar-width: none;
+      scrollbar-width: thin;
       -ms-overflow-style: none;
+      position: relative;
+      margin: 0 auto;
+      max-width: 1200px;
+      cursor: grab;
     }
     
     .members-scroll-container::-webkit-scrollbar {
-      display: none; /* Hide scrollbar for Chrome/Safari */
-    }
-
-    .members-scroll-container::-webkit-scrollbar {
-      height: 8px;
+      height: 12px;
+      display: block !important;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
     }
 
     .members-scroll-container::-webkit-scrollbar-thumb {
       background: var(--accent);
-      border-radius: 4px;
+      border-radius: 6px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
     }
 
-    .members-scroll-container::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 4px;
+    .members-scroll-container::-webkit-scrollbar-thumb:hover {
+      background: #45b7d1;
     }
 
     .members-grid {
       display: inline-flex;
-      gap: 1.5rem;
+      gap: 2rem;
       padding: 0 4%;
       min-width: max-content;
       width: 100%;
     }
 
     .member-item {
-      flex: 0 0 180px;
+      flex: 0 0 200px;
       text-align: center;
       transition: transform 0.3s ease;
     }
@@ -822,8 +828,8 @@
     }
 
     .member-image {
-      width: 150px;
-      height: 150px;
+      width: 180px;
+      height: 180px;
       border-radius: 50%;
       object-fit: cover;
       border: 3px solid var(--accent);
@@ -850,12 +856,12 @@
 
     @media (max-width: 768px) {
       .member-item {
-        flex: 0 0 140px;
+        flex: 0 0 160px;
       }
       
       .member-image {
-        width: 120px;
-        height: 120px;
+        width: 140px;
+        height: 140px;
       }
       
       .section-header h2 {
@@ -1004,7 +1010,7 @@
       <li><a href="#anggota">Anggota</a></li>
       <li><a href="#galeri">Galeri</a></li>
       <li><a href="#musik">Musik</a></li>
-      <li><a href="#saran">Saran</a></li>
+      <li><a href="#saran" onclick="showOptions(); return false;">Saran</a></li>
     </ul>
   </nav>
   <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle Sidebar">
@@ -1046,23 +1052,29 @@
     </div>
 
     <div class="gallery">
-      <div class="item" onclick="showOptions()">
-        <img src="https://i.supa.codes/LhpWFA" alt="Galeri" />
+      <div class="item">
+        <img src="https://i.supa.codes/3yMjLr" alt="2022-2023" />
       </div>
-      <div class="item" onclick="showOptions()">
-        <img src="https://i.supa.codes/GIIW2r" alt="Galeri" />
+      <div class="item">
+        <img src="https://i.supa.codes/GIIW2r" alt="2023-2024" />
       </div>
-      <div class="item" onclick="showOptions()">
-        <img src="https://i.supa.codes/_V2bOQ" alt="Galeri" />
+      <div class="item">
+        <img src="https://i.supa.codes/JJ7ULU" alt="2024-2025" />
       </div>
-      <div class="item" onclick="showOptions()">
-        <video src="https://i.supa.codes/hPCtBZ" controls></video>
+      <div class="item">
+        <img src="https://i.supa.codes/KL6shx" alt="Prambanan" />
       </div>
-      <div class="item" onclick="showOptions()">
-        <img src="https://i.supa.codes/b0pTjn" alt="Galeri" />
+      <div class="item">
+        <img src="https://i.supa.codes/w8CyFi" alt="Omah Oblong" />
       </div>
-      <div class="item" onclick="showOptions()">
-        <img src="https://i.supa.codes/peE5JP" alt="Galeri" />
+      <div class="item">
+        <img src="https://i.supa.codes/t7Kl1a" alt="Gunung Bromo" />
+      </div>
+      <div class="item">
+        <img src="https://i.supa.codes/xkJq4A" alt="Bukit Teletabis" />
+      </div>
+      <div class="item">
+        <img src="https://i.supa.codes/qApwNA" alt="Foto Angkatan" />
       </div>
     </div>
   </div>
@@ -1201,6 +1213,20 @@
       trackTitle.textContent = '🎵 ' + currentTrack.title;
     });
 
+    // Tambahkan event listener untuk auto-play ke lagu berikutnya
+    audio.addEventListener('ended', () => {
+      if (isLooping) {
+        // Jika mode loop aktif, ulangi lagu yang sama
+        audio.currentTime = 0;
+        audio.play();
+      } else {
+        // Jika mode loop tidak aktif, lanjut ke lagu berikutnya
+        currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+        selectTrack(currentTrackIndex);
+        audio.play();
+      }
+    });
+
     window.onload = () => {
       tracks.forEach((track, index) => {
         const option = document.createElement('option');
@@ -1224,6 +1250,12 @@
         currentTimeDisplay.textContent = formatTime(audio.currentTime);
         durationDisplay.textContent = formatTime(audio.duration);
       }
+    });
+
+    // Tambahkan event listener untuk mengubah durasi saat progress bar diubah
+    progressBar.addEventListener('input', () => {
+      const seekTime = (progressBar.value / 100) * audio.duration;
+      audio.currentTime = seekTime;
     });
 
     // Background animated balls
@@ -1266,7 +1298,7 @@
       requestAnimationFrame(animateBalls);
     }
 
-    // Generate and manage member items with auto-scroll
+    // Generate and manage member items
     const membersGrid = document.querySelector('.members-grid');
     if (membersGrid) {
       // Clear any existing content
@@ -1297,10 +1329,10 @@
           "Irwan",
           "Krisna Yudhistira",
           "Luvita Sofia Zahra",
-          "M. Azzam Albari",
           "M. Farel Baehaki",
-          "M. Syarif Hidayatullah",
           "M. Reyhan",
+          "M. Syarif Hidayatullah",
+          "M. Azzam Albari",
           "Naila Maulidia",
           "Nova Dwiaryanti",
           "Rifdan Avsiandi",
@@ -1322,73 +1354,16 @@
         membersGrid.appendChild(memberItem);
       }
 
-      // Auto-scroll functionality
+      // Track user interaction
       const scrollContainer = document.querySelector('.members-scroll-container');
-      const items = document.querySelectorAll('.member-item');
-      function getItemWidth() {
-        return items[0].offsetWidth + 24; // width + gap
-      }
-
-      function getVisibleItems() {
-        const width = window.innerWidth;
-        if (width <= 600) return 2; // HP
-        if (width <= 900) return 3; // Tablet
-        return 5; // Desktop
-      }
-      let visibleItems = getVisibleItems();
-      let currentIndex = 0;
-      const totalItems = items.length;
-      
-      // Hide scroll hint after first interaction
       const scrollHint = document.querySelector('.scroll-hint');
       
-      
-      function scrollToNextSet() {
-        visibleItems = getVisibleItems();
-        const itemWidth = getItemWidth();
-        currentIndex = (currentIndex + visibleItems) % totalItems;
-        if (currentIndex + visibleItems > totalItems) {
-          currentIndex = 0;
-        }
-        const scrollAmount = currentIndex * itemWidth;
-        scrollContainer.scrollTo({
-          left: scrollAmount,
-          behavior: 'smooth'
-        });
-      }
-      
-      // Start auto-scroll
-      let scrollInterval = setInterval(scrollToNextSet, 5000);
-      
-      // Pause auto-scroll on hover
-      scrollContainer.addEventListener('mouseenter', () => {
-        clearInterval(scrollInterval);
-      });
-      
-      // Resume auto-scroll when mouse leaves
-      scrollContainer.addEventListener('mouseleave', () => {
-        scrollInterval = setInterval(scrollToNextSet, 5000);
-      });
-      
-      // Update visibleItems & itemWidth on resize, restart interval
-      window.addEventListener('resize', () => {
-        visibleItems = getVisibleItems();
-        currentIndex = 0;
-        scrollToNextSet();
-        clearInterval(scrollInterval);
-        scrollInterval = setInterval(scrollToNextSet, 5000);
-      });
-      
-      // Track user interaction
-      scrollContainer.addEventListener('scroll', () => {
-        if (scrollHint) {
+      if (scrollHint) {
+        scrollContainer.addEventListener('scroll', () => {
           scrollHint.style.opacity = '0.5';
           setTimeout(() => scrollHint.remove(), 1000);
-        }
-      });
-      
-      // Initial scroll to show first item
-      scrollContainer.scrollLeft = 0;
+        });
+      }
     }
 
     animateBalls();
