@@ -1,0 +1,2182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="google" content="notranslate" />
+  <title>⚡Memories Forces Class XII-IPA⚡</title>
+  <link rel="icon" type="image/png" href="https://i.supa.codes/d9l1-v" />
+  <meta property="og:image" content="https://i.supa.codes/d9l1-v" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+  /* Sidebar styles */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    background: var(--bg-dark);
+    color: var(--text-dark);
+    z-index: 1001;
+    padding-top: 60px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  .sidebar-header {
+    width: 100%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 0.8rem 0.5rem;
+    text-align: center;
+  }
+
+  .sidebar-menu {
+    list-style: none;
+    padding: 0 1rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .sidebar-menu li a {
+    color: var(--text-dark);
+    text-decoration: none;
+    font-size: 0.95rem;
+    padding: 0.6rem 0.8rem;
+    display: block;
+  }
+
+  .sidebar-menu li a:hover {
+    color: var(--accent);
+  }
+
+  .sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    z-index: 1100;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    gap: 5px;
+    padding: 8px 0;
+  }
+
+  .sidebar-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin: 2px 0;
+    transition: all 0.3s ease;
+  }
+
+  .sidebar-toggle:hover span {
+    background: #fff;
+  }
+
+  .sidebar-toggle.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .sidebar-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .sidebar-toggle.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  @media (max-width: 900px) {
+    .sidebar {
+      width: 180px;
+      padding-top: 50px;
+      left: -180px;
+    }
+    
+    .sidebar.active {
+      left: 0;
+    }
+
+    .main-content, 
+    header,
+    .members-section,
+    .credits {
+      margin-left: 0;
+      width: 100%;
+    }
+
+    .sidebar-toggle {
+      display: flex;
+    }
+
+    header {
+      padding-left: 60px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .sidebar {
+      width: 160px;
+      padding-top: 45px;
+    }
+
+    .sidebar-toggle {
+      top: 8px;
+      left: 8px;
+      width: 36px;
+      height: 36px;
+    }
+
+    .sidebar-toggle span {
+      width: 20px;
+    }
+
+    .sidebar-header {
+      font-size: 1rem;
+      padding: 0.6rem 0.4rem;
+    }
+
+    .sidebar-menu li a {
+      font-size: 0.9rem;
+      padding: 0.5rem 0.6rem;
+    }
+
+    header {
+      padding-left: 52px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .sidebar-toggle {
+      top: 6px;
+      left: 6px;
+      width: 32px;
+      height: 32px;
+      padding: 6px 0;
+    }
+
+    .sidebar-toggle span {
+      width: 18px;
+      height: 2px;
+    }
+
+    header {
+      padding-left: 44px;
+    }
+  }
+
+  .main-content {
+    margin-left: 250px;
+    margin-top: 80px;
+    transition: margin-left 0.3s;
+    width: calc(100% - 250px);
+    min-height: calc(100vh - 80px);
+    box-sizing: border-box;
+    padding: 0 2rem;
+  }
+
+  .members-section {
+    padding: 4rem 2rem;
+    background: rgba(20, 20, 35, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    position: relative;
+    margin: 2rem 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .gallery-section {
+    width: 100%;
+    padding: 4rem 2rem;
+    margin: 0 auto;
+    box-sizing: border-box;
+    background: rgba(20, 20, 35, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin: 2rem auto 0;
+    width: 100%;
+    max-width: 1400px;
+    box-sizing: border-box;
+  }
+
+  .gallery .item {
+    position: relative;
+    cursor: pointer;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    border-radius: 8px;
+    background: rgba(30, 30, 46, 0.1);
+    transition: all 0.3s ease;
+    width: 100%;
+    height: 100%;
+  }
+
+  .gallery img,
+  .gallery video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: none;
+    transition: transform 0.3s ease;
+    display: block;
+  }
+
+  @media (max-width: 1200px) {
+    .gallery {
+      gap: 0.8rem;
+      padding: 0 1rem;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .gallery {
+      gap: 0.6rem;
+      padding: 0 0.8rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .gallery-section {
+      padding: 2rem 0.5rem;
+    }
+
+    .gallery {
+      gap: 0.3rem;
+      padding: 0 0.3rem;
+      margin: 1rem auto 0;
+    }
+    
+    .gallery .item {
+      border-radius: 6px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .gallery {
+      gap: 0.2rem;
+      padding: 0 0.2rem;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .sidebar {
+      left: -200px;
+      width: 180px;
+      box-shadow: 2px 0 16px rgba(0,0,0,0.15);
+      padding-top: 52px;
+    }
+    .sidebar.active {
+      left: 0;
+    }
+    header, 
+    .main-content,
+    .members-section,
+    .gallery-section,
+    .credits {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+
+  /* iPad and Tablet specific styles */
+  @media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) {
+    .sidebar {
+      width: 200px;
+    }
+
+    .main-content,
+    header,
+    .credits {
+      margin-left: 200px;
+      width: calc(100% - 200px);
+    }
+
+    .gallery {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.8rem;
+      padding: 0 1rem;
+    }
+
+    .gallery .item {
+      aspect-ratio: 1/1;
+    }
+
+    .home-content {
+      gap: 2rem;
+      padding: 0 1rem;
+    }
+
+    .home-text h1 {
+      font-size: 1.8rem;
+    }
+
+    .home-text p {
+      font-size: 1rem;
+    }
+
+    .profile-image {
+      width: 250px;
+      height: 250px;
+    }
+
+    .members-section {
+      padding: 3rem 1rem;
+    }
+
+    .members-scroll-container {
+      padding: 0 1rem;
+    }
+
+    .member-item {
+      flex: 0 0 180px;
+    }
+
+    .member-image {
+      width: 160px;
+      height: 160px;
+    }
+  }
+
+  /* iPad Pro specific styles */
+  @media only screen 
+  and (min-device-width: 1024px) 
+  and (max-device-width: 1366px) {
+    .sidebar {
+      width: 220px;
+    }
+
+    .main-content,
+    header,
+    .credits {
+      margin-left: 220px;
+      width: calc(100% - 220px);
+    }
+
+    .gallery {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      padding: 0 1.5rem;
+    }
+
+    .home-content {
+      gap: 3rem;
+      padding: 0 1.5rem;
+    }
+
+    .profile-image {
+      width: 280px;
+      height: 280px;
+    }
+  }
+
+  /* Fix for iPad in landscape mode */
+  @media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (orientation: landscape) {
+    .home-content {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .gallery {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .members-section {
+      padding: 2rem 1rem;
+    }
+  }
+
+  .gallery-filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+  }
+
+  .filter-btn {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--accent);
+    background: transparent;
+    color: var(--text-dark);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+  }
+
+  .filter-btn:hover {
+    background: var(--accent);
+    color: var(--bg-dark);
+  }
+
+  .filter-btn.active {
+    background: var(--accent);
+    color: var(--bg-dark);
+  }
+
+  .gallery .item {
+    display: none;
+    position: relative;
+    cursor: pointer;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    border-radius: 8px;
+    background: rgba(30, 30, 46, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .gallery .item.show {
+    display: block;
+  }
+
+  .gallery .item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .gallery .item:hover img {
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 768px) {
+    .gallery-filters {
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .filter-btn {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.8rem;
+    }
+  }
+
+  .upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-group label {
+    color: var(--text-dark);
+    font-size: 0.9rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-dark);
+    font-family: inherit;
+  }
+
+  .form-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .form-buttons button {
+    flex: 1;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .form-buttons button[type="submit"] {
+    background: var(--accent);
+    color: var(--bg-dark);
+  }
+
+  .form-buttons button[type="button"] {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--text-dark);
+  }
+
+  .form-buttons button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+
+  .gallery .item.drive-video {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+  }
+
+  .gallery .item.drive-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+  }
+</style>
+<style>
+    :root {
+      --bg-light: #f4f4f9;
+      --bg-dark: #1e1e2e;
+      --text-light: #333;
+      --text-dark: #f1f1f1;
+      --accent: #7c98ab;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      scrollbar-width: none;  /* Firefox */
+      -ms-overflow-style: none;  /* IE and Edge */
+      width: 100vw;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body::-webkit-scrollbar {
+      display: none;  /* Chrome, Safari and Opera */
+    }
+
+    body {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-dark);
+      position: relative;
+      overflow-x: hidden;
+      overflow-y: auto;
+      min-height: 100vh;
+      width: 100%;
+      text-rendering: optimizeLegibility;
+    }
+
+    * {
+      font-family: inherit;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    #bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    header {
+      background-color: var(--accent);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      margin-left: 250px;
+      width: calc(100% - 250px);
+      box-sizing: border-box;
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 1000;
+      transition: margin-left 0.3s, width 0.3s;
+    }
+    
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: white;
+      letter-spacing: 1px;
+    }
+
+    .theme-toggle, .music-player {
+      margin: 1rem;
+      text-align: center;
+    }
+
+    .music-player button, .music-player select {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      background-color: var(--accent);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 0.25rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .music-player button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .music-player button:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .music-player button.active {
+      background-color: #45b7d1;
+      color: var(--bg-dark);
+    }
+
+    .music-player select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 0.7rem center;
+      background-size: 1em;
+      padding-right: 2.5rem;
+      min-width: 200px;
+      max-width: 90%;
+    }
+
+    .music-player select:hover {
+      background-color: #45b7d1;
+    }
+
+    .music-player select option {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+      padding: 0.5rem;
+    }
+
+    .track-title {
+      text-align: center;
+      margin-bottom: 1rem;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      box-sizing: border-box;
+    }
+
+    .profile {
+      text-align: center;
+    }
+
+    .profile img {
+      width: 200px;
+      border-radius: 50%;
+      border: 5px solid var(--accent);
+    }
+
+    .gallery-title {
+      text-align: center;
+      margin: 2rem 0;
+      position: relative;
+    }
+
+    .home-section {
+      position: relative;
+      padding: 4rem 2rem;
+      background: rgba(30, 30, 46, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 1;
+      margin: 2rem 0;
+      border-radius: 15px;
+      overflow: hidden;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    .home-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(30, 30, 46, 0.2);
+      z-index: -1;
+    }
+
+    .home-content {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    .home-text {
+      flex: 1;
+    }
+
+    .home-text h1 {
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      font-size: 2.2rem;
+    }
+
+    .home-text p {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+      font-size: 1.1rem;
+    }
+
+    .home-image {
+      flex: 1;
+      text-align: center;
+      max-width: 100%;
+    }
+
+    .profile-image {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid var(--accent);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .profile-image:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    @media (max-width: 1200px) {
+      .profile-image {
+        max-width: 280px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .home-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+      }
+      
+      .profile-image {
+        max-width: 250px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .home-content {
+        gap: 1.5rem;
+      }
+
+      .profile-image {
+        max-width: 200px;
+        border-width: 4px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .profile-image {
+        max-width: 180px;
+        border-width: 3px;
+      }
+    }
+
+    .gallery-title::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: -10px;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .gallery-title h2 {
+      font-size: 1.5rem;
+      margin: 0;
+      color: var(--accent);
+      font-weight: normal;
+      letter-spacing: 2px;
+    }
+
+    .gallery img,
+    .gallery video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border: none;
+      transition: transform 0.3s ease;
+      display: block;
+    }
+
+    .gallery img:hover,
+    .gallery video:hover {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      .gallery {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+        padding: 0 0.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .gallery {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.3rem;
+        padding: 0 0.3rem;
+      }
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      background: rgba(30, 30, 46, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 90%;
+      width: 400px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .social-options {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .social-option {
+      padding: 0.8rem 1.2rem;
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: inherit;
+    }
+
+    .social-option:hover, .social-option.active {
+      background: var(--accent);
+      color: var(--bg-dark);
+    }
+
+    .suggestion-form {
+      display: none;
+    }
+
+    .suggestion-form.show {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .modal-content h3 {
+      margin: 0 0 1.5rem 0;
+      color: var(--accent);
+      font-size: 1.5rem;
+      font-weight: normal;
+    }
+
+    .modal-content p {
+      margin: 0 0 1.5rem 0;
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    .modal-content textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-dark);
+      resize: vertical;
+      min-height: 100px;
+      font-family: inherit;
+    }
+
+    .modal-content button {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      background: var(--accent);
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: opacity 0.3s;
+      font-family: inherit;
+    }
+
+    .modal-content button:hover {
+      opacity: 0.9;
+    }
+
+    @media (max-width: 480px) {
+      .modal-content {
+        width: 85%;
+        padding: 1.5rem;
+      }
+    }
+
+    .progress-container {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .progress {
+      flex: 1;
+      height: 4px;
+      -webkit-appearance: none;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      cursor: pointer;
+    }
+
+    .progress::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px;
+      height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .progress::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    .time-display {
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      min-width: 100px;
+      text-align: center;
+    }
+
+    .credits {
+      text-align: center;
+      padding: 2rem;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      animation: colorChange 5s infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: rgba(20, 20, 35, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      margin-left: 250px;
+      width: calc(100% - 250px);
+      box-sizing: border-box;
+      transition: margin-left 0.3s, width 0.3s;
+    }
+
+    @keyframes colorChange {
+      0% { color: #ff6b6b; }
+      20% { color: #4ecdc4; }
+      40% { color: #45b7d1; }
+      60% { color: #96ceb4; }
+      80% { color: #ffeead; }
+      100% { color: #ff6b6b; }
+    }
+
+    .credits p {
+      margin: 0;
+      display: inline;
+    }
+
+    .credits p:not(:last-child)::after {
+      content: "•";
+      margin: 0 0.5rem;
+      opacity: 0.5;
+    }
+
+    /* Members Section */
+    .section-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .section-header h2 {
+      color: var(--accent);
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .scroll-hint {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1rem;
+      margin: 1rem 0;
+      transition: opacity 0.5s ease;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+    }
+
+    .scroll-hint svg {
+      width: 24px;
+      height: 24px;
+      animation: bounceRight 2s infinite;
+    }
+
+    @keyframes bounceRight {
+      0%, 20%, 50%, 80%, 100% {transform: translateX(0);}
+      40% {transform: translateX(10px);}
+      60% {transform: translateX(5px);}
+    }
+
+    .members-scroll-container {
+      width: 100%;
+      overflow-x: auto;
+      padding: 1rem 0;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      -ms-overflow-style: none;
+      position: relative;
+      margin: 0 auto;
+      max-width: 1400px;
+      cursor: grab;
+    }
+    
+    .members-scroll-container::-webkit-scrollbar {
+      height: 12px;
+      display: block !important;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+    }
+
+    .members-scroll-container::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 6px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .members-scroll-container::-webkit-scrollbar-thumb:hover {
+      background: #45b7d1;
+    }
+
+    .members-grid {
+      display: inline-flex;
+      gap: 2rem;
+      padding: 0 2rem;
+      min-width: max-content;
+      width: 100%;
+    }
+
+    .member-item {
+      flex: 0 0 200px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .member-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .member-image {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent);
+      margin: 0 auto 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .member-item:hover .member-image {
+      border-color: #fff;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .member-name {
+      color: #fff;
+      font-weight: 500;
+      margin: 0.5rem 0 0.2rem;
+    }
+
+    .member-number {
+      color: var(--accent);
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      .member-item {
+        flex: 0 0 160px;
+      }
+      
+      .member-image {
+        width: 140px;
+        height: 140px;
+      }
+      
+      .section-header h2 {
+        font-size: 1.8rem;
+      }
+    }
+    /* ==================== MOBILE RESPONSIVE ==================== */
+    @media (max-width: 700px) {
+      header, .main-content, .members-section, .gallery-section, .home-section, .credits {
+        margin-left: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box;
+      }
+      header {
+        width: 100vw;
+        left: 0;
+        position: relative;
+        z-index: 1002;
+        padding: 0.6rem 0.3rem 0.6rem 3.2rem;
+        text-align: left;
+      }
+      header h1 {
+        font-size: 1.05rem;
+        padding: 0.2rem 0.2rem;
+        margin: 0;
+      }
+      .home-section, .gallery-section, .members-section {
+        padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+        margin-top: 1.1rem;
+      }
+      .gallery-title, .section-header h2 {
+        font-size: 1.1rem !important;
+        margin-bottom: 0.7rem;
+      }
+      .credits {
+        font-size: 0.85rem;
+        padding: 1rem 0.5rem;
+        margin-top: 1.2rem;
+        border-radius: 10px;
+      }
+      .credits p {
+        font-size: 0.85rem;
+      }
+    
+      .sidebar {
+        width: 80vw;
+        left: -80vw;
+        position: fixed;
+        z-index: 1001;
+        transition: left 0.3s;
+        box-shadow: 2px 0 8px rgba(0,0,0,0.18);
+      }
+      .sidebar.active {
+        left: 0;
+      }
+      .sidebar-toggle {
+        display: block;
+        left: 18px;
+        top: 18px;
+        z-index: 1100;
+      }
+      header h1 {
+        font-size: 1.2rem;
+        padding: 0.7rem 0.2rem;
+      }
+      .gallery {
+        grid-template-columns: 1fr;
+        gap: 0.7rem;
+      }
+      .gallery-title {
+        font-size: 1.1rem;
+      }
+      .gallery-item img {
+        max-width: 90vw;
+        height: auto;
+        border-radius: 10px;
+      }
+      .members-section {
+        margin-left: 0;
+        padding: 0.5rem;
+      }
+      .members-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .member-card {
+        flex-direction: column;
+        align-items: center;
+        padding: 0.7rem;
+      }
+      .member-photo {
+        width: 70px;
+        height: 70px;
+      }
+      .member-info h3 {
+        font-size: 1rem;
+      }
+      .member-info p {
+        font-size: 0.8rem;
+      }
+      .sidebar-header {
+        font-size: 1.05rem;
+        padding: 0.6rem 0.2rem;
+      }
+      .sidebar-menu li a {
+        font-size: 0.98rem;
+      }
+      .content {
+        padding: 0.7rem 0.2rem;
+      }
+    }
+
+    @media (min-width: 1400px) {
+      .container,
+      .home-content,
+      .gallery,
+      .members-scroll-container {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media (min-width: 1800px) {
+      .container,
+      .home-content,
+      .gallery,
+      .members-scroll-container {
+        max-width: 1600px;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+  </style>
+  <style>
+    @keyframes fadeInOut {
+      0% { opacity: 0.3; }
+      50% { opacity: 1; }
+      100% { opacity: 0.3; }
+    }
+    
+    .copyright {
+      position: relative;
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: rgba(124, 152, 171, 0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: 1px solid rgba(124, 152, 171, 0.2);
+      transition: all 0.3s ease;
+    }
+    
+    .copyright:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      background: rgba(124, 152, 171, 0.2);
+    }
+  </style>
+  <style>
+    .film-button {
+      width: 100%;
+      height: 100%;
+      background: rgba(124, 152, 171, 0.1);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: var(--text-dark);
+      font-size: 1rem;
+      padding: 1rem;
+    }
+
+    .film-button:hover {
+      background: rgba(124, 152, 171, 0.2);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Memories Forces Class XII-IPA⚡</h1>
+  </header>
+  
+  <!-- Sidebar -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">Menu</div>
+    <ul class="sidebar-menu">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#anggota">Anggota</a></li>
+      <li><a href="#galeri">Galeri</a></li>
+      <li><a href="#musik">Musik</a></li>
+      <li><a href="#saran" onclick="showOptions(); return false;">Saran</a></li>
+    </ul>
+  </nav>
+  <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle Sidebar">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="main-content">
+  <canvas id="bgCanvas"></canvas>
+
+  <section id="home" class="home-section">
+    <div class="container">
+      <div class="home-content">
+        <div class="home-text">
+          <h1>Selamat Datang di Kenangan Kelas XII IPA</h1>
+          <p>Ini adalah kumpulan kenangan indah kami selama menempuh pendidikan di MA ASSA'ADAH. Bersama-sama kami telah melewati berbagai momen berharga, tawa, dan tantangan yang membuat persahabatan kami semakin erat.</p>
+          <p>Kelas XII IPA bukan hanya tentang pelajaran, tapi juga tentang pertemanan yang akan selalu dikenang. Setiap momen kebersamaan, mulai dari belajar bersama, mengerjakan tugas kelompok, hingga saling mendukung dalam setiap ujian, telah mengukir kenangan yang tak terlupakan.</p>
+        </div>
+        <div class="home-image">
+          <img src="https://i.supa.codes/d9l1-v" alt="Profil Kelas XII IPA" class="profile-image" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="musik" class="music-section">
+    <div class="music-player">
+    <div class="track-title" id="trackTitle">🎵</div>
+    <div class="progress-container">
+      <span id="currentTime">0:00</span>
+      <input type="range" id="progressBar" class="progress" value="0" step="1" />
+      <span id="duration">0:00</span>
+    </div>
+    <button onclick="toggleMusic()">Play/Pause</button>
+    <select id="trackSelect" onchange="selectTrack(this.value)"></select>
+  </div>
+
+  <section id="anggota" class="members-section">
+    <div class="section-header">
+      <h2>Anggota Kelas</h2>
+      <div class="scroll-hint">
+        <span>Geser ke samping</span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"></path>
+        </svg>
+      </div>
+    </div>
+    <div class="members-scroll-container">
+      <div class="members-grid">
+        <!-- Member items will be added here -->
+      </div>
+    </div>
+  </section>
+
+  <section id="galeri" class="gallery-section">
+    <div class="gallery-title">
+      <h2>Gallery Forces</h2>
+    </div>
+
+    <div class="gallery-filters">
+      <button class="filter-btn active" data-filter="all">Semua</button>
+      <button class="filter-btn" data-filter="cewe">Poto Cewe</button>
+      <button class="filter-btn" data-filter="cowo">Poto Cowo</button>
+      <button class="filter-btn" data-filter="together">Together</button>
+      <button class="filter-btn" data-filter="video">Video</button>
+      <button class="filter-btn" data-filter="bromo" onclick="showComingSoon()">Bromo</button>
+      <button class="filter-btn" data-filter="random">Random</button>
+      <button class="filter-btn" data-filter="film">Film</button>
+    </div>
+
+    <div class="gallery">
+      <div class="item" data-category="all">
+        <img src="https://i.supa.codes/3yMjLr" alt="2022-2023" />
+      </div>
+      <div class="item" data-category="all">
+        <img src="https://i.supa.codes/N35KMG" alt="2023-2024" />
+      </div>
+      <div class="item" data-category="all">
+        <img src="https://i.supa.codes/JJ7ULU" alt="2024-2025" />
+      </div>
+      <div class="item" data-category="all">
+        <img src="https://i.supa.codes/KL6shx" alt="Prambanan" />
+      </div>
+      <div class="item" data-category="all">
+        <img src="https://i.supa.codes/w8CyFi" alt="Omah Oblong" />
+      </div>
+      <div class="item" data-category="all">
+        <img src="https://i.supa.codes/t7Kl1a" alt="Gunung Bromo" />
+      </div>
+      <div class="item" data-category="all">
+        <img src="https://i.supa.codes/xkJq4A" alt="Bukit Teletabis" />
+      </div>
+      <div class="item" data-category="all">
+        <img src="https://i.supa.codes/qApwNA" alt="Foto Angkatan" />
+      </div>
+      <!-- Poto Cewe -->
+      <div class="item" data-category="cewe">
+        <img src="Poto Cewe/IMG-20250609-WA0105.jpg" alt="Foto Cewe 1" />
+      </div>
+      <div class="item" data-category="cewe">
+        <img src="Poto Cewe/IMG-20250609-WA0104.jpg" alt="Foto Cewe 2" />
+      </div>
+      <div class="item" data-category="cewe">
+        <img src="Poto Cewe/IMG-20250609-WA0103.jpg" alt="Foto Cewe 3" />
+      </div>
+      <div class="item" data-category="cewe">
+        <img src="Poto Cewe/IMG-20250609-WA0096.jpg" alt="Foto Cewe 4" />
+      </div>
+      <div class="item" data-category="cewe">
+        <img src="Poto Cewe/IMG-20250609-WA0086.jpg" alt="Foto Cewe 5" />
+      </div>
+      <div class="item" data-category="cewe">
+        <img src="Poto Cewe/IMG-20250609-WA0085.jpg" alt="Foto Cewe 6" />
+      </div>
+      <div class="item" data-category="cewe">
+        <img src="Poto Cewe/IMG-20250609-WA0084.jpg" alt="Foto Cewe 7" />
+      </div>
+      <div class="item" data-category="cewe">
+        <img src="Poto Cewe/IMG-20250609-WA0083.jpg" alt="Foto Cewe 8" />
+      </div>
+      <!-- Poto Cowo -->
+      <div class="item" data-category="cowo">
+        <img src="Poto Cowo/IMG-20250609-WA0102.jpg" alt="Foto Cowo 1" />
+      </div>
+      <div class="item" data-category="cowo">
+        <img src="Poto Cowo/IMG-20250609-WA0101.jpg" alt="Foto Cowo 2" />
+      </div>
+      <div class="item" data-category="cowo">
+        <img src="Poto Cowo/IMG-20250609-WA0100.jpg" alt="Foto Cowo 3" />
+      </div>
+      <div class="item" data-category="cowo">
+        <img src="Poto Cowo/IMG-20250609-WA0099.jpg" alt="Foto Cowo 4" />
+      </div>
+      <div class="item" data-category="cowo">
+        <img src="Poto Cowo/IMG-20250609-WA0098.jpg" alt="Foto Cowo 5" />
+      </div>
+      <div class="item" data-category="cowo">
+        <img src="Poto Cowo/IMG-20250609-WA0095.jpg" alt="Foto Cowo 6" />
+      </div>
+      <div class="item" data-category="cowo">
+        <img src="Poto Cowo/IMG-20250609-WA0094.jpg" alt="Foto Cowo 7" />
+      </div>
+      <div class="item" data-category="cowo">
+        <img src="Poto Cowo/IMG-20250609-WA0093.jpg" alt="Foto Cowo 8" />
+      </div>
+      <div class="item" data-category="cowo">
+        <img src="Poto Cowo/IMG-20250609-WA0092.jpg" alt="Foto Cowo 9" />
+      </div>
+      <div class="item" data-category="cowo">
+        <img src="Poto Cowo/IMG-20250609-WA0088.jpg" alt="Foto Cowo 10" />
+      </div>
+      <div class="item" data-category="cowo">
+        <img src="Poto Cowo/IMG-20250609-WA0090.jpg" alt="Foto Cowo 11" />
+      </div>
+      <div class="item" data-category="cowo">
+        <img src="Poto Cowo/IMG-20250609-WA0091.jpg" alt="Foto Cowo 12" />
+      </div>
+      <div class="item" data-category="cowo">
+        <img src="Poto Cowo/IMG-20250609-WA0089.jpg" alt="Foto Cowo 13" />
+      </div>
+      <div class="item" data-category="cowo">
+        <img src="Poto Cowo/IMG-20250609-WA0087.jpg" alt="Foto Cowo 14" />
+      </div>
+      <!-- Together -->
+      <div class="item" data-category="together">
+        <img src="Together/IMG-20250609-WA0117.jpg" alt="Together 1" />
+      </div>
+      <div class="item" data-category="together">
+        <img src="Together/IMG-20250609-WA0116.jpg" alt="Together 2" />
+      </div>
+      <div class="item" data-category="together">
+        <img src="Together/IMG-20250609-WA0115.jpg" alt="Together 3" />
+      </div>
+      <div class="item" data-category="together">
+        <img src="Together/IMG-20250609-WA0114.jpg" alt="Together 4" />
+      </div>
+      <div class="item" data-category="together">
+        <img src="Together/IMG-20250609-WA0113.jpg" alt="Together 5" />
+      </div>
+      <div class="item" data-category="together">
+        <img src="Together/IMG-20250609-WA0112.jpg" alt="Together 6" />
+      </div>
+      <div class="item" data-category="together">
+        <img src="Together/IMG-20250609-WA0111.jpg" alt="Together 7" />
+      </div>
+      <div class="item" data-category="together">
+        <img src="Together/IMG-20250609-WA0109.jpg" alt="Together 8" />
+      </div>
+      <div class="item" data-category="together">
+        <img src="Together/IMG-20250609-WA0110.jpg" alt="Together 9" />
+      </div>
+      <div class="item" data-category="together">
+        <img src="Together/IMG-20250609-WA0107.jpg" alt="Together 10" />
+      </div>
+      <div class="item" data-category="together">
+        <img src="Together/IMG-20250609-WA0108.jpg" alt="Together 11" />
+      </div>
+      <div class="item" data-category="together">
+        <img src="Together/IMG-20250609-WA0106.jpg" alt="Together 12" />
+      </div>
+      <div class="item" data-category="together">
+        <img src="Together/IMG-20250609-WA0082.jpg" alt="Together 13" />
+      </div>
+      <div class="item" data-category="together">
+        <img src="Together/IMG-20250609-WA0081.jpg" alt="Together 14" />
+      </div>
+      <!-- Video -->
+      <div class="item" data-category="video">
+        <video src="Video/VID-20250609-WA0097.mp4" type="Video/mp4" controls></video>
+      </div>
+      <div class="item" data-category="video">
+        <video src="Video/VID-20250610-WA0200.mp4" type="Video/mp4" controls></video>
+      </div>
+      <div class="item" data-category="video">
+        <video src="Video/VID-20250610-WA0201.mp4" type="Video/mp4" controls></video>
+      </div>
+      <!-- Random -->
+      <div class="item" data-category="random">
+        <img src="Random/IMG-20250610-WA0229.jpg" alt="Random 1" />
+      </div>
+      <div class="item" data-category="random">
+        <img src="Random/IMG-20250610-WA0228.jpg" alt="Random 2" />
+      </div>
+      <div class="item" data-category="random">
+        <img src="Random/IMG-20250610-WA0227.jpg" alt="Random 3" />
+      </div>
+      <div class="item" data-category="random">
+        <img src="Random/IMG-20250610-WA0225.jpg" alt="Random 4" />
+      </div>
+      <div class="item" data-category="random">
+        <img src="Random/IMG-20250610-WA0223.jpg" alt="Random 5" />
+      </div>
+      <div class="item" data-category="random">
+        <img src="Random/IMG-20250610-WA0222.jpg" alt="Random 6" />
+      </div>
+      <div class="item" data-category="random">
+        <img src="Random/IMG-20250610-WA0220.jpg" alt="Random 7" />
+      </div>
+      <div class="item" data-category="random">
+        <img src="Random/IMG-20250610-WA0219.jpg" alt="Random 8" />
+      </div>
+      <div class="item" data-category="random">
+        <img src="Random/IMG-20250610-WA0218.jpg" alt="Random 9" />
+      </div>
+      <div class="item" data-category="random">
+        <img src="Random/IMG-20250610-WA0217.jpg" alt="Random 10" />
+      </div>
+      <div class="item" data-category="random">
+        <img src="Random/IMG-20250610-WA0216.jpg" alt="Random 11" />
+      </div>
+      <div class="item" data-category="random">
+        <img src="Random/IMG-20250610-WA0215.jpg" alt="Random 12" />
+      </div>
+      
+      <!-- Film -->
+      <div class="item" data-category="film" style="grid-column: span 1; grid-row: span 1;">
+        <button class="film-button" onclick="window.open('https://drive.google.com/file/d/1-NCeXGtD4hHM23wVO0oVynxmQ9Sw7xQh/view', '_blank')">
+          Lihat Film Angakatan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="credits">
+    <p>Thank To</p>
+    <p>Allah SWT</p>
+    <p>Vscode</p>
+    <p>Myself</p>
+    <p>GPT</p>
+    <p>Cursor</p>
+    <p class="copyright" style="margin-top: 1rem; font-size: 0.9rem; animation: fadeInOut 2s infinite;">© 2025 Memories Forces Class XII-IPA. All rights reserved.</p>
+  </div>
+
+  <div class="modal" id="modal" onclick="hideOptions()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <h3>Pilih Platform</h3>
+      <p>Pilih platform untuk mengirim saran Anda</p>
+      <div class="social-options">
+        <button class="social-option" onclick="selectPlatform('whatsapp')">WhatsApp</button>
+        <button class="social-option" onclick="selectPlatform('instagram')">Instagram</button>
+        <button class="social-option" onclick="selectPlatform('tiktok')">TikTok</button>
+      </div>
+      <form class="suggestion-form" id="suggestionForm" onsubmit="submitSuggestion(event)">
+        <textarea placeholder="Tulis saran Anda di sini..." required></textarea>
+        <button type="submit">Kirim Saran</button>
+      </form>
+      <button onclick="hideOptions()" style="margin-top: 1rem; background: transparent; border: 1px solid var(--accent);">Tutup</button>
+    </div>
+  </div>
+
+  <!-- Upload Form Modal -->
+  <div class="modal" id="uploadModal">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <h3>Upload Foto/Video</h3>
+      <form id="uploadForm" class="upload-form" onsubmit="handleUpload(event)">
+        <div class="form-group">
+          <label for="fileType">Pilih Tipe:</label>
+          <select id="fileType" required>
+            <option value="cewe">Poto Cewe</option>
+            <option value="cowo">Poto Cowo</option>
+            <option value="together">Together</option>
+            <option value="velociwi">Velociwi</option>
+            <option value="bromo">Bromo</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="fileUpload">Pilih File:</label>
+          <input type="file" id="fileUpload" accept="image/*,video/*" required>
+        </div>
+        <div class="form-group">
+          <label for="fileDescription">Deskripsi:</label>
+          <input type="text" id="fileDescription" placeholder="Masukkan deskripsi foto/video">
+        </div>
+        <div class="form-group">
+          <label for="uploaderName">Nama Pengupload:</label>
+          <input type="text" id="uploaderName" required placeholder="Masukkan nama Anda">
+        </div>
+        <div class="form-buttons">
+          <button type="submit">Upload</button>
+          <button type="button" onclick="hideUploadForm()">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="comingSoonModal">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <h3>Cooming Soon</h3>
+      <p>Gambar Bromo akan segera hadir!</p>
+      <button onclick="hideComingSoon()" style="margin-top: 1rem;">Tutup</button>
+    </div>
+  </div>
+
+  <div class="modal" id="randomImageModal">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <h3>Random Image</h3>
+      <div id="randomImageContainer" style="margin: 1rem 0;">
+        <img id="randomImage" style="max-width: 100%; border-radius: 8px;" />
+      </div>
+      <button onclick="showRandomImage()" style="margin-right: 0.5rem;">Random Lagi</button>
+      <button onclick="hideRandomImage()">Tutup</button>
+    </div>
+  </div>
+
+  <audio id="bgMusic"></audio>
+
+  <script>
+    const audio = document.getElementById('bgMusic');
+    const trackTitle = document.getElementById('trackTitle');
+    const progressBar = document.getElementById('progressBar');
+    const trackSelect = document.getElementById('trackSelect');
+    const currentTimeDisplay = document.getElementById('currentTime');
+    const durationDisplay = document.getElementById('duration');
+
+    const tracks = [
+      { title: "Multo, Cup of Joe", url: "https://files.catbox.moe/5rz3p4.mp3" },
+      { title: "Someone to Stay", url: "https://files.catbox.moe/qc3usy.mp3" },
+      { title: "Sempurna English Version", url: "https://files.catbox.moe/f1uj7t.mp3" },
+      { title: "Sempurna Indonesian Version", url: "https://files.catbox.moe/6sauxu.mp3" },
+      { title: "Walking in the Wind - One Direction", url: "https://files.catbox.moe/hvjl0h.mp3"},
+      { title: "Where We Are - One Direction", url: "https://files.catbox.moe/nplufo.mp3"},
+      { title: "Lana Del Rey - Cinnamon Girl", url: "https://files.catbox.moe/es7unz.mp3" },
+      { title: "Milk & Bone - Natalie", url: "https://files.catbox.moe/w32blj.mp3" },
+      { title: "Sea Of Feelings (Slowed)", url: "https://files.catbox.moe/r5a8b5.mp3" },
+      { title: "CHARLIE PUTH - One Call Away", url: "https://files.catbox.moe/7wg02i.mp3" },
+      { title: "everything works out in the end, Luke Willies", url: "https://files.catbox.moe/3o33by.mp3" },
+      { title: "ours to keep, Kendis", url: "https://files.catbox.moe/4c5c3q.mp3" },
+      { title: "message in a bottle, Taylor Swift", url: "https://files.catbox.moe/jp0bfp.mp3" },
+      { title: "KAMI PHONK, Dr.M0B", url: "https://files.catbox.moe/ih8cxl.mp3" },
+      { title: "DEFEATED, Dr.M0b", url: "https://files.catbox.moe/evm9e1.mp3" },
+      { title: "Ava, Famy", url: "https://files.catbox.moe/g50rmm.mp3" }
+    ];
+
+    let currentTrackIndex = 0;
+    let isLooping = false;
+    let isShuffling = false;
+
+    function toggleMusic() {
+      if (!audio.src) {
+        selectTrack(0);
+        return;
+      }
+      
+      const playButton = document.querySelector('button[onclick="toggleMusic()"]');
+      const currentTrack = tracks[currentTrackIndex];
+      
+      if (audio.paused) {
+        audio.play()
+          .then(() => {
+            playButton.classList.add('active');
+            trackTitle.textContent = '🎵 ' + currentTrack.title;
+          })
+          .catch(error => {
+            console.error('Playback failed:', error);
+            trackTitle.textContent = '❌ Click to play';
+            playButton.classList.remove('active');
+          });
+      } else {
+        audio.pause();
+        playButton.classList.remove('active');
+        trackTitle.textContent = '🎵 ' + currentTrack.title;
+      }
+    }
+
+    function selectTrack(index) {
+      currentTrackIndex = parseInt(index);
+      const track = tracks[currentTrackIndex];
+      
+      // Reset audio state
+      audio.pause();
+      audio.currentTime = 0;
+      
+      // Set new source
+      audio.src = track.url;
+      trackTitle.textContent = '🎵 ' + track.title;
+      trackSelect.value = index;
+      
+      // Reset progress bar and time display
+      progressBar.value = 0;
+      currentTimeDisplay.textContent = '0:00';
+      durationDisplay.textContent = '0:00';
+      
+      // Add error handling for audio loading
+      audio.onerror = function() {
+        console.error('Error loading audio:', track.url);
+        trackTitle.textContent = '❌ Error loading track';
+      };
+    }
+
+    // Tambahkan event listener untuk memastikan judul berubah saat audio dimuat
+    audio.addEventListener('loadedmetadata', () => {
+      const currentTrack = tracks[currentTrackIndex];
+      trackTitle.textContent = '🎵 ' + currentTrack.title;
+    });
+
+    // Tambahkan event listener untuk auto-play ke lagu berikutnya
+    audio.addEventListener('ended', () => {
+      if (isLooping) {
+        // Jika mode loop aktif, ulangi lagu yang sama
+        audio.currentTime = 0;
+        audio.play();
+      } else {
+        // Jika mode loop tidak aktif, lanjut ke lagu berikutnya
+        currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+        selectTrack(currentTrackIndex);
+        audio.play();
+      }
+    });
+
+    window.onload = () => {
+      tracks.forEach((track, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = track.title;
+        trackSelect.appendChild(option);
+      });
+      selectTrack(0);
+    };
+
+    function formatTime(seconds) {
+      if (isNaN(seconds)) return '0:00';
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = Math.floor(seconds % 60);
+      return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+
+    audio.addEventListener('timeupdate', () => {
+      if (audio.duration && !isNaN(audio.duration)) {
+        progressBar.value = (audio.currentTime / audio.duration) * 100;
+        currentTimeDisplay.textContent = formatTime(audio.currentTime);
+        durationDisplay.textContent = formatTime(audio.duration);
+      }
+    });
+
+    // Tambahkan event listener untuk mengubah durasi saat progress bar diubah
+    progressBar.addEventListener('input', () => {
+      const seekTime = (progressBar.value / 100) * audio.duration;
+      audio.currentTime = seekTime;
+    });
+
+    // Background animated balls
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let balls = [];
+    const ballCount = 50;
+
+    for (let i = 0; i < ballCount; i++) {
+      balls.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 10 + 5,
+        dx: (Math.random() - 0.5) * 0.5,
+        dy: (Math.random() - 0.5) * 0.5,
+        color: `rgba(124,152,171,${Math.random() * 0.4 + 0.1})`
+      });
+    }
+
+    function animateBalls() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      balls.forEach(ball => {
+        ball.x += ball.dx;
+        ball.y += ball.dy;
+
+        if (ball.x > canvas.width) ball.x = 0;
+        if (ball.x < 0) ball.x = canvas.width;
+        if (ball.y > canvas.height) ball.y = 0;
+        if (ball.y < 0) ball.y = canvas.height;
+
+        ctx.beginPath();
+        ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2);
+        ctx.fillStyle = ball.color;
+        ctx.fill();
+      });
+
+      requestAnimationFrame(animateBalls);
+    }
+
+    // Generate and manage member items
+    const membersGrid = document.querySelector('.members-grid');
+    if (membersGrid) {
+      // Clear any existing content
+      membersGrid.innerHTML = '';
+      
+      // Create member items
+      for (let i = 1; i <= 35; i++) {
+        const memberNumber = i.toString().padStart(2, '0');
+        const memberNames = [
+          "Adrian Mahmuda",
+          "Ahmad Aqil Junaedi",
+          "Ahmad Fauzan",
+          "Ainaya Usova Kamila",
+          "Alia Dwiriani",
+          "Alya Nurul Fauziah",
+          "Azillia Syifa Fauziah",
+          "Azka Kamilah",
+          "Deril Syahputra",
+          "Dhieka Ananda Aquila",
+          "Dian Syarifah Ramadhani",
+          "Dita Ayu Aditia",
+          "Febi Putri Riyadi",
+          "Firda",
+          "Handi Novaldi",
+          "Hisyam Apriandi",
+          "Ikhsan Fadhillah",
+          "Iman Rahmawan Gozalli",
+          "Irwan",
+          "Krisna Yudhistira",
+          "Luvita Sofia Zahra",
+          "M. Farel Baehaki",
+          "M. Reyhan",
+          "M. Syarif Hidayatullah",
+          "M. Azzam Albari",
+          "Naila Maulidia",
+          "Nova Dwiaryanti",
+          "Rifdan Avsiandi",
+          "Salma Agustin",
+          "Salsabila Azzahra",
+          "Sayyidatina",
+          "Sumayah Asy Syahidah",
+          "Taufan Indra Pratama",
+          "Wisnu Riza Ulil Amri",
+          "Ziljian Andika Wahyudi"
+        ];
+        const memberItem = document.createElement('div');
+        memberItem.className = 'member-item';
+        memberItem.innerHTML = `
+          <img src="anggota/${memberNumber}.JPG" alt="${memberNames[i-1]}" class="member-image">
+          <div class="member-name">${memberNames[i-1]}</div>
+          <div class="member-number">Absen ${i}</div>
+        `;
+        membersGrid.appendChild(memberItem);
+      }
+
+      // Track user interaction
+      const scrollContainer = document.querySelector('.members-scroll-container');
+      const scrollHint = document.querySelector('.scroll-hint');
+      
+      if (scrollHint) {
+        scrollContainer.addEventListener('scroll', () => {
+          scrollHint.style.opacity = '0.5';
+          setTimeout(() => scrollHint.remove(), 1000);
+        });
+      }
+    }
+
+    animateBalls();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    function showOptions() {
+      const modal = document.getElementById('modal');
+      modal.classList.add('show');
+    }
+
+    function hideOptions() {
+      const modal = document.getElementById('modal');
+      modal.classList.remove('show');
+    }
+
+    function selectPlatform(platform) {
+      const buttons = document.querySelectorAll('.social-option');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      const form = document.getElementById('suggestionForm');
+      form.classList.add('show');
+      
+      // Simpan platform yang dipilih
+      form.dataset.platform = platform;
+    }
+
+    function submitSuggestion(event) {
+      event.preventDefault();
+      const suggestion = event.target.querySelector('textarea').value;
+      const platform = event.target.dataset.platform;
+      
+      let url = '';
+      switch(platform) {
+        case 'whatsapp':
+          url = `https://wa.me/6282113148932?text=${encodeURIComponent(suggestion)}`;
+          break;
+        case 'instagram':
+          url = 'https://www.instagram.com/dhiekaaquilaa?igsh=YXF3eWhjdXQzYWE0';
+          break;
+        case 'tiktok':
+          url = 'https://www.tiktok.com/@apaajagtau5?_t=ZS-8wugESj53ge&_r=1';
+          break;
+      }
+      
+      if (platform === 'whatsapp') {
+        window.open(url, '_blank');
+      } else {
+        alert('Silakan kirim saran Anda melalui platform yang dipilih');
+        window.open(url, '_blank');
+      }
+      
+      event.target.reset();
+      hideOptions();
+    }
+
+    // Gallery filter functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const galleryItems = document.querySelectorAll('.gallery .item');
+
+      // Show all items initially
+      galleryItems.forEach(item => {
+        if (item.dataset.category === 'all') {
+          item.classList.add('show');
+        }
+      });
+
+      filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Remove active class from all buttons
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          // Add active class to clicked button
+          button.classList.add('active');
+
+          const filterValue = button.getAttribute('data-filter');
+
+          galleryItems.forEach(item => {
+            if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+              item.classList.add('show');
+            } else {
+              item.classList.remove('show');
+            }
+          });
+        });
+      });
+    });
+
+    function showUploadForm() {
+      const modal = document.getElementById('uploadModal');
+      modal.classList.add('show');
+    }
+
+    function hideUploadForm() {
+      const modal = document.getElementById('uploadModal');
+      modal.classList.remove('show');
+    }
+
+    async function handleUpload(event) {
+      event.preventDefault();
+      
+      const fileType = document.getElementById('fileType').value;
+      const file = document.getElementById('fileUpload').files[0];
+      const description = document.getElementById('fileDescription').value;
+      const uploaderName = document.getElementById('uploaderName').value;
+      
+      if (!file) {
+        alert('Silakan pilih file terlebih dahulu');
+        return;
+      }
+
+      // Buat FormData untuk mengirim file
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('type', fileType);
+      formData.append('description', description);
+      formData.append('uploader', uploaderName);
+
+      try {
+        // Di sini Anda perlu menambahkan endpoint server untuk menangani upload
+        // Contoh: const response = await fetch('/api/upload', {
+        //   method: 'POST',
+        //   body: formData
+        // });
+        
+        alert('File berhasil diupload!');
+        hideUploadForm();
+        // Refresh halaman untuk menampilkan file baru
+        location.reload();
+      } catch (error) {
+        console.error('Error uploading file:', error);
+        alert('Gagal mengupload file. Silakan coba lagi.');
+      }
+    }
+
+    // Tutup modal saat klik di luar
+    document.getElementById('uploadModal').addEventListener('click', function(event) {
+      if (event.target === this) {
+        hideUploadForm();
+      }
+    });
+
+    function showComingSoon() {
+      const modal = document.getElementById('comingSoonModal');
+      modal.classList.add('show');
+    }
+
+    function hideComingSoon() {
+      const modal = document.getElementById('comingSoonModal');
+      modal.classList.remove('show');
+    }
+
+    // Tutup modal saat klik di luar
+    document.getElementById('comingSoonModal').addEventListener('click', function(event) {
+      if (event.target === this) {
+        hideComingSoon();
+      }
+    });
+
+    function showRandomImage() {
+      const randomItems = document.querySelectorAll('.gallery .item[data-category="random"]');
+      const randomIndex = Math.floor(Math.random() * randomItems.length);
+      const randomItem = randomItems[randomIndex];
+      const randomImage = randomItem.querySelector('img');
+      
+      if (randomImage) {
+        const modal = document.getElementById('randomImageModal');
+        const imageElement = document.getElementById('randomImage');
+        imageElement.src = randomImage.src;
+        imageElement.alt = randomImage.alt;
+        modal.classList.add('show');
+      }
+    }
+
+    function hideRandomImage() {
+      const modal = document.getElementById('randomImageModal');
+      modal.classList.remove('show');
+    }
+
+    // Tutup modal saat klik di luar
+    document.getElementById('randomImageModal').addEventListener('click', function(event) {
+      if (event.target === this) {
+        hideRandomImage();
+      }
+    });
+  </script>
+</div>
+<script>
+  // Sidebar Toggle Script
+  const sidebar = document.getElementById('sidebar');
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  function toggleSidebar() {
+    sidebar.classList.toggle('active');
+    sidebarToggle.classList.toggle('active');
+  }
+  sidebarToggle.addEventListener('click', toggleSidebar);
+  // Optional: close sidebar when clicking outside on mobile
+  document.addEventListener('click', function(event) {
+    if (window.innerWidth <= 900 && sidebar.classList.contains('active')) {
+      if (!sidebar.contains(event.target) && !sidebarToggle.contains(event.target)) {
+        sidebar.classList.remove('active');
+        sidebarToggle.classList.remove('active');
+      }
+    }
+  });
+</script>
+</body>
+</html>
